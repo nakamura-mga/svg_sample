@@ -8,10 +8,11 @@ indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace  = true
 
-[*.html]
+[*.html],
+[*.jade]
 tab_width = 2
 
-[*.css]
+[*.css],
 [*.scss]
 tab_width = 4
 

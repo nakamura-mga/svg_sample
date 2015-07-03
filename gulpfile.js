@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     plumber = require('gulp-plumber'),
+    jade = require('gulp-jade'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cssbeautify = require('gulp-cssbeautify'),
@@ -11,6 +12,7 @@ var gulp = require('gulp'),
 
 var paths = {
     base: './htdocs',
+    jade: './htdocs/jade/*.jade',
     html: './htdocs/**/*.html',
     scss: './htdocs/scss/*.scss',
     css:  './htdocs/**/*.css',
@@ -30,6 +32,18 @@ gulp.task('server', function(){
   });
 });
 
+gulp.task('jade', function() {
+   gulp
+    .src(paths.jade)
+    .pipe(plumber())
+    .pipe(changed(paths.dist))
+    .pipe(jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest(paths.base))
+    .pipe(browserSync.reload({stream: true}));
+});
+
 gulp.task('html', function(){
   gulp
     .src(paths.html)
@@ -47,8 +61,6 @@ gulp.task('sass', function() {
     .pipe(sass({
       errLogToConsole: true
     }))
-    .pipe(autoprefixer())
-    .pipe(cssbeautify())
     .pipe(gulp.dest('./htdocs/css'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -56,6 +68,8 @@ gulp.task('sass', function() {
 gulp.task('css', function() {
   gulp
     .src(paths.css)
+    .pipe(autoprefixer())
+    .pipe(cssbeautify())
     .pipe(gulp.dest(paths.dist))
 });
 
@@ -84,7 +98,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('watch', function(){
-  gulp.watch(paths.html, ['html']);
+  gulp.watch(paths.jade, ['jade']);
   gulp.watch(paths.scss, ['sass']);
   gulp.watch(paths.js, ['js']);
   gulp.watch(paths.img, ['img']);

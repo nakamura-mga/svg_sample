@@ -1,0 +1,52 @@
+extends _layout
+
+block title
+	title SVGサンプル
+
+block append meta
+	include _inc_meta_facebook
+	include _inc_meta_twitter
+
+block append style
+	link(rel="stylesheet", href="css/style.css")
+
+block body
+
+	#symbol
+
+	.wrapper
+
+		header.header
+
+		main.main
+
+			ul#playList
+				li
+					span.play: a(href="")
+					span.logo
+				li
+					span.play: a(href="")
+					span.logo
+				li
+					span.play: a(href="")
+					span.logo
+				li
+					span.play: a(href="")
+					span.logo
+				li
+					span.play: a(href="")
+					span.logo
+
+			section.sns
+				div#sns-twitter
+					include _inc_embed_twitter
+				div#sns-facebook
+					include _inc_embed_facebook
+				div#sns-line
+					include _inc_embed_line
+
+		footer.footer
+			small
+	script(src='js/lib/jquery-1.11.3.min.js')
+	script(src='js/lib/jquery.easing.min.js')
+	script(src="js/script.js")
